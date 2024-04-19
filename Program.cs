@@ -1,4 +1,6 @@
 
+using AutoMapper;
+using GenerateUnitTestsWithAi.API.Mapper;
 using GenerateUnitTestsWithAi.API.Services;
 using GenerateUnitTestsWithAi.API.Services.Configuration;
 
@@ -23,6 +25,15 @@ namespace GenerateUnitTestsWithAi.API
 
             builder.Services.Configure<CsvOptions>(
                 builder.Configuration.GetSection(CsvOptions.SectionKey));
+
+            // Configure AutoMapper
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<ServiceToApiMappingProfile>();
+                // Add more profiles as needed
+            });
+            IMapper mapper = mapperConfig.CreateMapper();
+            builder.Services.AddSingleton(mapper);
 
             var app = builder.Build();
 
