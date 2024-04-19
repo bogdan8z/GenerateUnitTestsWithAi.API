@@ -6,6 +6,7 @@ namespace GenerateUnitTestsWithAi.API.Services
 {
     public class ChatGptService : IAIGeneratorService
     {
+     //   TODO
         private const string RequestUri = "https://api.openai.com/v1/chat/completions";
         private readonly string _model = "gpt-3.5-turbo-0125";
         private readonly string _apiKey = "YOUR_API_KEY";
