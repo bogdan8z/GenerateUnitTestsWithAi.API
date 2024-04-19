@@ -1,0 +1,6 @@
+@GenerateUnitTestsWithAi.API_HostAddress = http://localhost:5234
+
+GET {{GenerateUnitTestsWithAi.API_HostAddress}}/transformation/
+Accept: application/json
+
+###

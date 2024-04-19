@@ -1,0 +1,10 @@
+/bin/Debug/net8.0
+/.vs/GenerateUnitTestsWithAi.API/v17
+/.vs/GenerateUnitTestsWithAi.API/DesignTimeBuild
+/.vs/GenerateUnitTestsWithAi.API/FileContentIndex
+/.vs/GenerateUnitTestsWithAi.API/config/applicationhost.config
+/Properties/launchSettings.json
+/obj/Debug/net8.0
+/obj/GenerateUnitTestsWithAi.API.csproj.nuget.dgspec.json
+/obj
+/GenerateUnitTestsWithAi.API.csproj.user
