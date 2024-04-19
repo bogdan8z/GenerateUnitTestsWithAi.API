@@ -10,7 +10,7 @@ namespace GenerateUnitTestsWithAi.API.Services
         private const string RequestUri = "https://open-ai21.p.rapidapi.com/chatgpt";
         private const string Host = "open-ai21.p.rapidapi.com";
         private const string ContentType = "application/json";
-        private readonly string _apiKey = "YOUR_API_KEY";
+        private readonly string _apiKey = "you rapidapi key";
         private readonly string _role = "user";
 
         public async Task<string?> GetResponse(string prompt)
