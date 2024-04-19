@@ -1,4 +1,5 @@
-﻿namespace GenerateUnitTestsWithAi.API.Services
+﻿
+namespace GenerateUnitTestsWithAi.API.Services
 {
     public class UnitTestService : IUnitTestService
     {
@@ -10,10 +11,23 @@
             _aiGeneratorService = aiGeneratorService;
         }
         public async Task<string?> GenerateUnitTest(string method)
-        {           
-            var prompt= _askForUnitTest + method;
+        {
+            var encodedText = EncodeMethodTextToBeSent(method);
+
+            string? completion = await GetAiResponse(encodedText);
+
+            return completion;
+        }
+
+        private string EncodeMethodTextToBeSent(string method)
+        {
+            return method;
+        }
+
+        private async Task<string?> GetAiResponse(string text)
+        {
+            var prompt = _askForUnitTest + text;
             var completion = await _aiGeneratorService.GetResponse(prompt);
-            
             return completion;
         }
     }

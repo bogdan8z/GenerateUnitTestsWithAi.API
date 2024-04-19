@@ -55,6 +55,12 @@ namespace GenerateUnitTestsWithAi.API.Services
             return result;
         }
 
+        public string TransformCode(string code)
+        {
+            //todo
+            return code;
+        }
+
         private static string? GenerateCode(string key)
         {
             var newGuid = Guid.NewGuid().ToString().Replace("-","");
@@ -77,5 +83,19 @@ namespace GenerateUnitTestsWithAi.API.Services
             var code = _writer.SearchValue(_filePath, key);
             return code != null;
         }
+
+        private void Replace()
+        {
+            // method = "public bool IsOneTwoThree(string str){return str==\"123\";}";
+
+            //foreach existing transformations: search <space>key<anythingelse>  or <anythingelse>key<space>
+            //or .key<anythingelse> or <anythingelse>key.
+            //or <anythingelse>key(
+            //or (key<anythingelse>
+            //or <key<anythingelse> or <anythingelse>key>
+            //                                                                  and replace the key
+        }
+
+       
     }
 }

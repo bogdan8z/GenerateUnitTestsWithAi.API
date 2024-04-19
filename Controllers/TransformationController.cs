@@ -56,5 +56,16 @@ namespace GenerateUnitTestsWithAi.API.Controllers
             _logger.LogInformation("GetAll done");
             return Ok(returnModel);
         }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult TransformCode([FromBody] DoTransformationModel doTransformationModel)
+        {
+
+            var result = _transformationService.TransformCode(doTransformationModel.Code);
+
+            _logger.LogInformation("TransformCode done");
+            return Ok(result);
+        }
     }
 }

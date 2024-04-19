@@ -10,6 +10,8 @@ namespace GenerateUnitTestsWithAi.API.Services
 
         List<TransformationGetModel> GetAllTransformation();
 
+        string TransformCode(string code);
+
 
     }
 }
