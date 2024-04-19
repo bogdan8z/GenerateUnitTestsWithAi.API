@@ -4,13 +4,15 @@ namespace GenerateUnitTestsWithAi.API.Services
 {
     public interface ITransformationService
     {
-        string? WriteTransformation(string key);
+        void WriteTransformation(string key);
 
-        string? WriteTransformationPair(string key, string? value);
+        void WriteTransformationPair(string key, string? value);
 
         List<TransformationGetModel> GetAllTransformation();
 
-        string TransformCode(string code);
+        string TransformEncode(string code);
+
+        string TransformDecode(string encodedCode);
 
 
     }

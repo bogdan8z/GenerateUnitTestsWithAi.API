@@ -76,8 +76,6 @@ namespace GenerateUnitTestsWithAi.API.Services
         public string? SearchValue(string filePath, string searchValue)
         {
             using var reader = new StreamReader(filePath);
-            //// Read the header line to skip it
-            //reader.ReadLine();
 
             // Loop through each line in the CSV file
             while (!reader.EndOfStream)
@@ -100,7 +98,6 @@ namespace GenerateUnitTestsWithAi.API.Services
                 foreach (var value in values)
                 {
                     // Check if the current value matches the search value
-                    //if (value.Equals(searchValue,og StringComparison.OrdinalIgnoreCase))
                     if(value == searchValue)
                     {
                         return line;

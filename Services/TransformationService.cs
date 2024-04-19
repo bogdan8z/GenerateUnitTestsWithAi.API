@@ -8,7 +8,12 @@ namespace GenerateUnitTestsWithAi.API.Services
     {
         private readonly ICsvWriterService _writer;
         private readonly string _filePath;
+        private static readonly string PrefixEncode = "__";
 
+        private TransformationService()
+        {
+
+        }
         public TransformationService(ICsvWriterService writer, IOptions<CsvOptions> csvOptions)
         {
             _writer = writer;
@@ -17,27 +22,35 @@ namespace GenerateUnitTestsWithAi.API.Services
                 csvOptions.Value.ExportFileRelativePath ?? "file not found");
         }
 
-        public string? WriteTransformation(string key)
+        public void WriteTransformation(string key)
         { 
-            return WriteTransformationPair(key, null);
+            WriteTransformationPair(key, null);
         }
 
-        public string? WriteTransformationPair(string key, string? value)
+        public void WriteTransformationPair(string key, string? value)
         {
-            if (CheckExists(key))
+            var keyToWrite = LowercaseFirst(key);
+            SaveKeyValue(keyToWrite, value);
+           
+            keyToWrite = UppercaseFirst(key);
+            SaveKeyValue(keyToWrite, value);
+        }
+
+        private void SaveKeyValue(string keyToWrite, string? value)
+        {
+            if (CheckExists(keyToWrite))
             {
-                return null;
+                return;
             }
 
-            value ??= GenerateCode(key);
+            value ??= GenerateCode(keyToWrite);
 
             var rowToBeWritten = new List<IList<string>>
             {
-                new List<string>{key, value }
+                new List<string>{ keyToWrite, value }
             };
 
             _writer.Write(_filePath, rowToBeWritten);
-            return null;
         }
 
         public List<TransformationGetModel> GetAllTransformation()
@@ -53,13 +66,45 @@ namespace GenerateUnitTestsWithAi.API.Services
                 });
             }
             return result;
-        }
+        }         
 
-        public string TransformCode(string code)
+        public string TransformEncode(string code)
         {
-            //todo
+            var transformations = GetAllTransformation();
+            transformations.ForEach(tr =>
+            {
+                code = code.Replace(tr.Key, tr.Value);
+            });
+
             return code;
         }
+
+        public string TransformDecode(string encodedCode)
+        {
+            var transformations = GetAllTransformation();
+            transformations.ForEach(tr =>
+            {
+                encodedCode = encodedCode.Replace(tr.Value, tr.Key);
+            });
+
+            return encodedCode;
+        }
+
+        private static string LowercaseFirst(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return string.Empty;
+            else
+                return char.ToLower(s[0]) + s[1..];
+        }
+
+        private static string UppercaseFirst(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return string.Empty;
+            else
+                return char.ToUpper(s[0]) + s[1..];
+        }        
 
         private static string? GenerateCode(string key)
         {
@@ -75,7 +120,7 @@ namespace GenerateUnitTestsWithAi.API.Services
                 result = key.Substring(0, 2);
             }
 
-            return $"{result}-{newGuid}";
+            return $"{result}{PrefixEncode}{newGuid}";
         }
 
         private bool CheckExists(string key)
@@ -95,7 +140,5 @@ namespace GenerateUnitTestsWithAi.API.Services
             //or <key<anythingelse> or <anythingelse>key>
             //                                                                  and replace the key
         }
-
-       
     }
 }

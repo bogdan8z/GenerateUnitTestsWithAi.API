@@ -3,6 +3,7 @@ using AutoMapper;
 using GenerateUnitTestsWithAi.API.Mapper;
 using GenerateUnitTestsWithAi.API.Services;
 using GenerateUnitTestsWithAi.API.Services.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace GenerateUnitTestsWithAi.API
 {
@@ -18,13 +19,16 @@ namespace GenerateUnitTestsWithAi.API
             builder.Services.AddScoped<IAIGeneratorService, RapidApiChatGptService>();
             builder.Services.AddScoped<IUnitTestService, UnitTestService>();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddXmlSerializerFormatters();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             builder.Services.Configure<CsvOptions>(
                 builder.Configuration.GetSection(CsvOptions.SectionKey));
+
+            builder.Services.Configure<AppSettings>(builder.Configuration);
 
             // Configure AutoMapper
             var mapperConfig = new MapperConfiguration(cfg =>
