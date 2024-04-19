@@ -27,6 +27,8 @@ namespace GenerateUnitTestsWithAi.API
 
             builder.Services.Configure<CsvOptions>(
                 builder.Configuration.GetSection(CsvOptions.SectionKey));
+            builder.Services.Configure<AiOptions>(
+             builder.Configuration.GetSection(AiOptions.SectionKey));
 
             builder.Services.Configure<AppSettings>(builder.Configuration);
 
