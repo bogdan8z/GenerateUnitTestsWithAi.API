@@ -57,7 +57,7 @@ namespace GenerateUnitTestsWithAi.API.Controllers
             return Ok(returnModel);
         }
 
-        [HttpPost]
+        [HttpPost("TransformCode")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult TransformCode([FromBody] DoTransformationModel doTransformationModel)
         {
