@@ -1,7 +1,4 @@
-# GenerateUnitTestsWithAi.API
-GenerateUnitTestsWithAi.API
-
-## Generate UnitTests with ChatGpt using RapidAPI
+# Generate UnitTests with ChatGpt using RapidAPI
 
 You can use /transformation endpoints to define transformation for your code so the method text will be sent encoded<br />
 All the transformation are saved to the /Data/CodingData.csv (check Csv.ExportFileRelativePath config key)
